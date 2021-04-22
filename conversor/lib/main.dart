@@ -9,13 +9,24 @@ const request = "https://api.hgbrasil.com/finance?format=json&key=75981960";
 // print(json.decode(response.body)["results"]["currencies"]["USD"]);
 // print(await getData());
 
-void main() async{
+void main() async {
   runApp(MaterialApp(
     home: Home(),
+    theme: ThemeData(
+        hintColor: Colors.amber,
+        primaryColor: Colors.white,
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+          focusedBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Colors.amber)),
+          hintStyle: TextStyle(color: Colors.amber),
+        )),
   ));
 }
 
-Future<Map> getData() async { //Future é um agente que vai receber dados assincronos
+Future<Map> getData() async {
+  //Future é um agente que vai receber dados assincronos
   http.Response response = await http.get(request);
   return json.decode(response.body);
 }
@@ -26,6 +37,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  double dolar;
+  double euro;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,28 +50,73 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: FutureBuilder<Map>(
-        future: getData(),
-        builder: (context, snapshot) {
-          switch(snapshot.connectionState) { //snapshot são os dados da conexão
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return Center(
-                child: Text("Carregando Dados...",
-                style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                textAlign: TextAlign.center,),
-              );
-            default:
-              if(snapshot.hasError) {
+          future: getData(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              //snapshot são os dados da conexão
+              case ConnectionState.none:
+              case ConnectionState.waiting:
                 return Center(
-                  child: Text("Erro ao Carregar Dados!!!",
+                  child: Text(
+                    "Carregando Dados...",
                     style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                    textAlign: TextAlign.center,),
+                    textAlign: TextAlign.center,
+                  ),
                 );
-              } else {
-                return Container(color: Colors.green,);
-              }
-          }
-        }),
+              default:
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      "Erro ao Carregar Dados!!!",
+                      style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                } else {
+                  dolar = snapshot.data["results"]["currencies"]["USD"]["buy"];
+                  euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
+                  return SingleChildScrollView(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Icon(Icons.monetization_on,
+                            size: 150.0, color: Colors.amber),
+                        TextField(
+                          decoration: InputDecoration(
+                              labelText: "Reais",
+                              labelStyle: TextStyle(color: Colors.amber),
+                              border: OutlineInputBorder(),
+                            prefixText: "R\$"
+                          ),
+                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                        ),
+                        Divider(),
+                        TextField(
+                          decoration: InputDecoration(
+                              labelText: "Dólares",
+                              labelStyle: TextStyle(color: Colors.amber),
+                              border: OutlineInputBorder(),
+                              prefixText: "US\$"
+                          ),
+                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                        ),
+                        Divider(),
+                        TextField(
+                          decoration: InputDecoration(
+                              labelText: "Euros",
+                              labelStyle: TextStyle(color: Colors.amber),
+                              border: OutlineInputBorder(),
+                              prefixText: "€"
+                          ),
+                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                        )
+                      ],
+                    ),
+                  );
+                }
+            }
+          }),
     );
   }
 }
