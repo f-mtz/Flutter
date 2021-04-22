@@ -1,7 +1,7 @@
 # App feitos em treinamento com ![Flutter](https://img.shields.io/badge/-Flutter-black?style=flat-square&logo=flutter&logoColor=blue)
 
 
-## Calculadora de IMC
+## Calculadora de IMC (Em construção)
 
 ## Conversor de Moedas (Em breve)
 
