@@ -3,6 +3,6 @@
 
 ## Calculadora de IMC
 
-## Conversor de Moedas
+## Conversor de Moedas (Em breve)
 
 #### Consome uma API para usar dados de cotação em tempo real.
