@@ -15,7 +15,7 @@ void main() async{
   ));
 }
 
-Future<Map> getData() async {
+Future<Map> getData() async { //Future é um agente que vai receber dados assincronos
   http.Response response = await http.get(request);
   return json.decode(response.body);
 }
@@ -35,7 +35,29 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.amber,
         centerTitle: true,
       ),
-      body: FutureBuilder(),
+      body: FutureBuilder<Map>(
+        future: getData(),
+        builder: (context, snapshot) {
+          switch(snapshot.connectionState) { //snapshot são os dados da conexão
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return Center(
+                child: Text("Carregando Dados...",
+                style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                textAlign: TextAlign.center,),
+              );
+            default:
+              if(snapshot.hasError) {
+                return Center(
+                  child: Text("Erro ao Carregar Dados!!!",
+                    style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                    textAlign: TextAlign.center,),
+                );
+              } else {
+                return Container(color: Colors.green,);
+              }
+          }
+        }),
     );
   }
 }
