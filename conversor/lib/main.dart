@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:convert';
 
 const request = "https://api.hgbrasil.com/finance?format=json&key=75981960";
-// print(json.decode(response.body)["results"]["currencies"]["USD"]);
-// print(await getData());
 
 void main() async {
   runApp(MaterialApp(
@@ -46,13 +44,19 @@ class _HomeState extends State<Home> {
   double euro;
 
   void _realChanged(String text) {
-    print(text);
+    double real = double.parse(text);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
   }
   void _dolarChanged(String text) {
-    print(text);
+    double dolar = double.parse(text);
+    realController.text = (dolar * this.dolar).toStringAsFixed(2);
+    euroController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
   }
   void _euroChanged(String text) {
-    print(text);
+    double euro = double.parse(text);
+    realController.text = (euro * this.euro).toStringAsFixed(2);
+    dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
   }
 
   @override
