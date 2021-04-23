@@ -3,7 +3,7 @@
 ## ✔️Apps Finalizados 
 >#### 🏋️Calculadora de IMC
 >#### 🤑 Conversor de Moedas 
->##### 😏 Consome uma API para usar dados de cotação em tempo real.
+>##### 📌 Consome uma API para usar dados de cotação em tempo real.
 
 ## 📆 BackLog
 >#### 📞 Agenda de Contatos (Em andamento)
