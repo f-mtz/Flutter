@@ -2,9 +2,15 @@
 
 ## ✔️Apps Finalizados 
 >#### 🏋️Calculadora de IMC
+>#### 🤑 Conversor de Moedas 
+> - Consome uma API para usar dados de cotação em tempo real.
 
 ## 📆 BackLog
->#### 🤑 Conversor de Moedas (Em breve)
+> 📞 Agenda de Contatos (Em andamento)
+> - Usa camera para inserir imagem no contato
+> - Liga pro contato direto da agenda
+> - CRUD completo
+> - Listagem com Ordenação
 
-#### Consome uma API para usar dados de cotação em tempo real.
+
 
